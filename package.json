@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.2",
     "@monster-notebook/mui": "^1.0.2",
     "axios": "^1.5.1",
+    "negotiator": "^0.6.3",
     "next": "14.0.2",
     "next-intl": "^3.0.3",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

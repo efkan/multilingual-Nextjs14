@@ -61,7 +61,8 @@ export default function LanguageSelect() {
 								<MenuList sx={{ width: '100%' }} id="split-button-menu">
 									{i18n.locales.filter(loc => loc !== params.locale).map(locale =>
 										<MenuItem
-											sx={{ justifyContent: 'center', textTransform: 'uppercase' }}
+											sx={{ justifyContent: 'center', textTransform: 'uppercase', color: 'white' }}
+											className='hover:bg-gray-700'
 											key={locale}
 											selected={params.locale === locale}
 											onClick={handleClose}
