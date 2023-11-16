@@ -2,5 +2,7 @@
   "Docs": "Docs",
   "Learn": "Learn",
   "Templates": "Templates",
-  "Deploy": "Deploy"
+  "Deploy": "Deploy",
+  "Country": "Country",
+  "SelectedLocale": "Selected Locale"
 }

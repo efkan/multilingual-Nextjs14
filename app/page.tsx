@@ -2,13 +2,16 @@
 
 import Main from './components/Main';
 import { Locale } from '../i18n-config'
+import { getDictionary } from '@/get-dictionary';
 
 type Props = {params:{lang: Locale}}
 
-export default function Home({params: {lang}}: Readonly<Props>) {
-  console.log('HIT to root page.tsx - locale: ', lang);
+export default async function IndexPage ({params}: Readonly<{params: {locale: Locale}}>) {
+  console.log('HIT to IndexPage !!! - params: ', params);
+
+  const dictionary = await getDictionary(params.locale)
 
   return (
-    <Main />
+    <Main t={dictionary} />
   )
 }
