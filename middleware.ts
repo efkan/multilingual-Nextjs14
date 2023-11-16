@@ -42,15 +42,10 @@ export function middleware(request: NextRequest) {
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
-  console.log("middleware - pathnameIsMissingLocale:", pathnameIsMissingLocale);
-  console.log("middleware - pathname:", pathname);
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
-    console.log("middleware - locale:", locale);
-    console.log("middleware - request.url:", request.url);
-    console.log("middleware - `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`:", `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`);
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
