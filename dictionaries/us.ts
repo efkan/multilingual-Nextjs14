@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "Docs": "Docs",
   "Learn": "Learn",
   "Templates": "Templates",

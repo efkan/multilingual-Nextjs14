@@ -1,6 +1,6 @@
 import { trCountry, deCountry, ukCountry, usCountry } from "@/app/utils/constants";
 
-module.exports = {
+export default {
   "Docs": "Docs",
   "Learn": "Learn",
   "Templates": "Templates",

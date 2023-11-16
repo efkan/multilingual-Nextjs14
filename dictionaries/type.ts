@@ -1,4 +1,3 @@
-import en from './en.json'
-
+import en from './us.ts'
 
 export type Dictionaries = typeof en
