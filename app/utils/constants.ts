@@ -1,8 +1,50 @@
+const turkeyDomain = 'support.monsternotebook.com'
+const germanyDomain = 'support.tulparnotebook.de'
+const ukDomain = 'support.tulparnotebook.co.uk'
+const usDomain = 'support.tulparnotebook.com'
+
+export const trCountry = 'Turkey'
+export const deCountry = 'Germany'
+export const ukCountry = 'United Kingdom'
+export const usCountry = 'United States'
+
 export const domainLocaleMapping = {
-  'support.monsternotebook.com': 'tr-TR',
-  'support.tulparnotebook.de': 'de-DE',
-  'support.tulparnotebook.com': 'en-US',
-  'support.tulparnotebook.co.uk': 'en-GB',
+  [turkeyDomain]: 'tr',
+  [germanyDomain]: 'de',
+  [ukDomain]: 'en-US',
+  [usDomain]: 'en-GB',
+}
+
+export const domainCountryNameMapping = {
+  [turkeyDomain]: trCountry,
+  [germanyDomain]: deCountry,
+  [ukDomain]: ukCountry,
+  [usDomain]: usCountry,
+}
+
+export const countryNameDomainMapping = {
+  [trCountry]: turkeyDomain,
+  [deCountry]: germanyDomain,
+  [ukCountry]: ukDomain,
+  [usCountry]: usDomain,
+}
+
+export const localeCountryCodeMapping = {
+  'tr': 'tr',
+  'tr-TR': 'tr',
+  'de': 'de',
+  'de-DE': 'de',
+  'en-US': 'us',
+  'en-GB': 'uk',
+}
+
+export const countryCodeLocaleMapping = {
+  'tr': 'tr',
+  'tr-TR': 'tr',
+  'de': 'de',
+  'de-DE': 'de',
+  'en-US': 'us',
+  'en-GB': 'uk',
 }
 
 export const languageCodeCookieName = 'language-code';

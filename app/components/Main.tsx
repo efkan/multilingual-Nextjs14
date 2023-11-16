@@ -5,12 +5,17 @@ import Image from 'next/image'
 import {useParams} from 'next/navigation'
 
 import LanguageSelect from './LanguageSelect'
+import CountrySelect from './CountrySelect'
 import { Dictionaries } from '@/dictionaries/type'
+import { domainCountryNameMapping } from '../utils/constants'
 
 
 export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const anchorClassName = "group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:border-neutral-700 hover:bg-neutral-800/30"
   const params = useParams()
+
+  const domain = window.location.hostname as keyof typeof domainCountryNameMapping
+  const countryName = domainCountryNameMapping[domain]
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -18,16 +23,16 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
         <div className='flex gap-y-3 flex-col justify-center'>
           <p className="fixed left-0 top-0 flex w-full justify-start border-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl border-neutral-800 bg-zinc-800/30 from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 lg:bg-zinc-800/30">
             {t.Country}&nbsp;
-            <code className="font-mono font-bold">{params.locale}</code>
+            <code className="font-mono font-bold">{countryName}</code>
           </p>
           <p className="fixed left-0 top-0 flex w-full justify-center border-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl border-neutral-800 bg-zinc-800/30 from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 lg:bg-zinc-800/30">
             {t.SelectedLocale}&nbsp;
-            <code className="font-mono font-bold">{params.locale}</code>
+            <code className="font-mono font-bold">{params.locale.toString().toUpperCase()}</code>
           </p>
         </div>
-        <div className='flex flex-col justify-center'>
+        <div className='flex gap-y-3 flex-row justify-center'>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            {/* <CountrySelect /> */}
+            <CountrySelect currentDomain={domain} currentCountry={countryName} />
           </div>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
             <LanguageSelect />

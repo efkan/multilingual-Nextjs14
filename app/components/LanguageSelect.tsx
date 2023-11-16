@@ -18,7 +18,6 @@ import WhiteButton from '@/app/components/WhiteButton';
 
 
 export default function LanguageSelect() {
-	console.log("LanguageSelect - i18n.locales:", i18n.locales);
 	const params = useParams();
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -62,7 +61,6 @@ export default function LanguageSelect() {
 									{i18n.locales.filter(loc => loc !== params.locale).map(locale =>
 										<MenuItem
 											sx={{ justifyContent: 'center', textTransform: 'uppercase', color: 'white' }}
-											className='hover:bg-gray-700'
 											key={locale}
 											selected={params.locale === locale}
 											onClick={handleClose}

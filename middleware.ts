@@ -5,6 +5,8 @@ import { i18n } from './i18n-config'
 
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
+import { domainLocaleMapping } from './app/utils/constants'
+import { keys } from '@mui/system'
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -19,7 +21,12 @@ function getLocale(request: NextRequest): string | undefined {
     locales
   )
 
-  const locale = matchLocale(languages, locales, i18n.defaultLocale)
+  // Determining the default locale according to the URL
+  const requestHost = request.headers.get('host')
+  const requestDomain = requestHost?.split(':')[0] as keyof typeof domainLocaleMapping
+  const defaultLocaleByDomain = domainLocaleMapping[requestDomain]
+
+  const locale = matchLocale(languages, locales, defaultLocaleByDomain)
 
   return locale
 }
