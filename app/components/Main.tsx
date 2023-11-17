@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import {useParams} from 'next/navigation'
 
-import LanguageSelect from './LanguageSelect'
+import LanguageSelect from './LocaleSelect'
 import CountrySelect from './CountrySelect'
 import { Dictionaries } from '@/dictionaries/type'
 import { domainCountryNameMapping, domainLocaleMapping } from '../utils/constants'
@@ -25,7 +25,7 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const countryName = domainCountryNameMapping[domain]
 
   if (!params.locale) {
-    params.locale = domainLocaleMapping[domain] as Locale
+    params.locale = domainLocaleMapping[domain]
   }
 
   return (
@@ -46,7 +46,7 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
             <CountrySelect currentDomain={domain} currentCountry={countryName} />
           </div>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <LanguageSelect locale={params.locale} />
+            <LanguageSelect locale={params.locale as Locale} />
           </div>
         </div>
       </div>

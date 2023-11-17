@@ -1,13 +1,15 @@
 import Main from './components/Main';
 import { headers } from 'next/headers'
+import { Locale } from '../i18n-config'
 import { getDictionary } from '@/get-dictionary';
+import { domainLocaleMapping } from './utils/constants';
 
 
 export default async function IndexPage () {
-  const host = headers().get('host')
-  console.log("IndexPage - host:", host);
+  const domain = headers().get('host')?.split(':')[0] as keyof typeof domainLocaleMapping
 
-  const dictionary = await getDictionary('tr')
+  const defaultLocale = domainLocaleMapping[domain] as Locale
+  const dictionary = await getDictionary(defaultLocale)
 
   return (
     <Main t={dictionary} />

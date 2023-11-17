@@ -15,6 +15,7 @@ import { LanguageOutlined as LanguageOutlinedIcon } from '@monster-notebook/mui/
 
 // ** components
 import WhiteButton from '@/app/components/WhiteButton';
+import { domainLocaleMapping } from '../utils/constants';
 
 type Props = Readonly<{
 	locale: Locale
@@ -26,9 +27,16 @@ export default function LanguageSelect(props: Props) {
 
 	const pathName = usePathname()
   const redirectedPathName = (locale: string) => {
+		const domain = window.location.hostname as keyof typeof domainLocaleMapping
+		const defaultLocale = domainLocaleMapping[domain]
+
+		if (locale === defaultLocale) return '/'
+
     if (!pathName) return '/'
     const segments = pathName.split('/')
     segments[1] = locale
+		console.log('segments.join(/)', segments.join('/'));
+
     return segments.join('/')
   }
 
