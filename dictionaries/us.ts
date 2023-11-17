@@ -1,4 +1,4 @@
-export default {
+const us = {
   "Docs": "Docs",
   "Learn": "Learn",
   "Templates": "Templates",
@@ -10,3 +10,5 @@ export default {
   "United Kingdom": "United Kingdom",
   "United States": "United States"
 }
+
+export default us;

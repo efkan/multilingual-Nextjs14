@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import {useParams} from 'next/navigation'
 
@@ -13,6 +13,13 @@ import { domainCountryNameMapping } from '../utils/constants'
 export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const anchorClassName = "group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:border-neutral-700 hover:bg-neutral-800/30"
   const params = useParams()
+  const [didMount, setDidMount] = useState(false)
+
+  useEffect(() => {
+    setDidMount(true)
+  }, [])
+
+  if (!didMount) return null
 
   const domain = window.location.hostname as keyof typeof domainCountryNameMapping
   const countryName = domainCountryNameMapping[domain]

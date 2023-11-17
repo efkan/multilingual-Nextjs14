@@ -1,6 +1,6 @@
 import { deCountry, trCountry, ukCountry, usCountry } from "@/app/utils/constants";
 
-export default {
+const de = {
   "Docs": "Dokumente",
   "Learn": "Lernen",
   "Templates": "Vorlagen",
@@ -12,3 +12,5 @@ export default {
   [ukCountry]: "Großbritannien",
   [usCountry]: "Vereinigte Staaten"
 }
+
+export default de;
