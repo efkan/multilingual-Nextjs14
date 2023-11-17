@@ -11,8 +11,8 @@ export const usCountry = 'United States'
 export const domainLocaleMapping = {
   [turkeyDomain]: 'tr',
   [germanyDomain]: 'de',
-  [ukDomain]: 'en-US',
-  [usDomain]: 'en-GB',
+  [ukDomain]: 'en-GB',
+  [usDomain]: 'en-US',
 }
 
 export const domainCountryNameMapping = {
@@ -30,15 +30,6 @@ export const countryNameDomainMapping = {
 }
 
 export const localeCountryCodeMapping = {
-  'tr': 'tr',
-  'tr-TR': 'tr',
-  'de': 'de',
-  'de-DE': 'de',
-  'en-US': 'us',
-  'en-GB': 'uk',
-}
-
-export const countryCodeLocaleMapping = {
   'tr': 'tr',
   'tr-TR': 'tr',
   'de': 'de',

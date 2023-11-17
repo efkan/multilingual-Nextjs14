@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import { i18n } from './i18n-config'
+import { Locale, i18n } from './i18n-config'
 
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 import { domainLocaleMapping } from './app/utils/constants'
-import { keys } from '@mui/system'
 
-function getLocale(request: NextRequest): string | undefined {
+
+function getLocale(request: NextRequest): Locale {
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {}
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
@@ -22,17 +22,35 @@ function getLocale(request: NextRequest): string | undefined {
   )
 
   // Determining the default locale according to the URL
-  const requestHost = request.headers.get('host')
-  const requestDomain = requestHost?.split(':')[0] as keyof typeof domainLocaleMapping
-  const defaultLocaleByDomain = domainLocaleMapping[requestDomain]
+  const domain = extractDomainFromRequest(request)
+  const defaultLocaleByDomain = domainLocaleMapping[domain]
 
   const locale = matchLocale(languages, locales, defaultLocaleByDomain)
 
-  return locale
+  return locale as Locale
+}
+
+const extractDomainFromRequest = (request: NextRequest) => {
+  const host = request.headers.get('host')
+  const domain = host?.split(':')[0] as keyof typeof domainLocaleMapping
+
+  return domain
+}
+
+const isLocaleBelongsToDomain = (request: NextRequest, locale: Locale) => {
+  const domain = extractDomainFromRequest(request)
+  const result = domainLocaleMapping[domain] === locale
+
+  return result
 }
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  const locale = getLocale(request)
+
+  if (isLocaleBelongsToDomain(request, locale)) {
+    return NextResponse.next()
+  }
 
   // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   // If you have one
@@ -52,7 +70,6 @@ export function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request)
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products

@@ -7,8 +7,8 @@ import {useParams} from 'next/navigation'
 import LanguageSelect from './LanguageSelect'
 import CountrySelect from './CountrySelect'
 import { Dictionaries } from '@/dictionaries/type'
-import { domainCountryNameMapping } from '../utils/constants'
-
+import { domainCountryNameMapping, domainLocaleMapping } from '../utils/constants'
+import { Locale } from '@/i18n-config'
 
 export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const anchorClassName = "group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:border-neutral-700 hover:bg-neutral-800/30"
@@ -24,6 +24,10 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const domain = window.location.hostname as keyof typeof domainCountryNameMapping
   const countryName = domainCountryNameMapping[domain]
 
+  if (!params.locale) {
+    params.locale = domainLocaleMapping[domain] as Locale
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-start justify-between font-mono text-sm lg:flex">
@@ -34,7 +38,7 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
           </p>
           <p className="fixed left-0 top-0 flex w-full justify-center border-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl border-neutral-800 bg-zinc-800/30 from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 lg:bg-zinc-800/30">
             {t.SelectedLocale}&nbsp;
-            <code className="font-mono font-bold">{params.locale.toString().toUpperCase()}</code>
+            <code className="font-mono font-bold">{params.locale?.toString().toUpperCase()}</code>
           </p>
         </div>
         <div className='flex gap-y-3 flex-row justify-center'>
@@ -42,7 +46,7 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
             <CountrySelect currentDomain={domain} currentCountry={countryName} />
           </div>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <LanguageSelect />
+            <LanguageSelect locale={params.locale} />
           </div>
         </div>
       </div>

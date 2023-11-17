@@ -1,11 +1,13 @@
 import Main from './components/Main';
-import { Locale } from '../i18n-config'
+import { headers } from 'next/headers'
 import { getDictionary } from '@/get-dictionary';
 
-type Props = {params:{lang: Locale}}
 
-export default async function IndexPage ({params}: Readonly<{params: {locale: Locale}}>) {
-  const dictionary = await getDictionary(params.locale)
+export default async function IndexPage () {
+  const host = headers().get('host')
+  console.log("IndexPage - host:", host);
+
+  const dictionary = await getDictionary('tr')
 
   return (
     <Main t={dictionary} />
