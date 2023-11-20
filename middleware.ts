@@ -5,7 +5,7 @@ import { Locale, i18n } from './i18n-config'
 
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
-import { domainLocaleMapping } from './app/utils/constants'
+import { countryCodeLocaleMapping, countryCodes, domainLocaleMapping, localeCountryCodeMapping } from './app/utils/constants'
 
 
 function getLocale(request: NextRequest): Locale {
@@ -45,8 +45,12 @@ const isLocaleBelongsToDomain = (request: NextRequest, locale: Locale) => {
 }
 
 export function middleware(request: NextRequest) {
+  // NOTE that when the user's default language the same with locale, the country code is not present in the address
+  // and the request is hooked by this middleware function
+
   const pathname = request.nextUrl.pathname
   const locale = getLocale(request)
+  const countryCode = localeCountryCodeMapping[locale]
 
   if (isLocaleBelongsToDomain(request, locale)) {
     return NextResponse.next()
@@ -64,18 +68,18 @@ export function middleware(request: NextRequest) {
   ) return
 
   // Check if there is any supported locale in the pathname
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  const pathnameIsMissingCountryCode = countryCodes.every(
+    // use the countryCode instead the locale ("us" instead "en-US")
+    (countryCode) => !pathname.startsWith(`/${countryCode}/`) && pathname !== `/${countryCode}`
   )
 
   // Redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-
+  if (pathnameIsMissingCountryCode) {
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
     return NextResponse.redirect(
       new URL(
-        `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
+        `/${countryCode}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
         request.url
       )
     )

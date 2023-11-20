@@ -7,10 +7,15 @@ const tr = {
   "Deploy": "Dagit",
   "Country": "Ulke",
   "SelectedLocale": "Secilen Yerel Ayar",
+  "Locale": "Yerel Ayar",
   [trCountry]: "Türkiye",
   [deCountry]: "Almanya",
   [ukCountry]: "Birleşik Krallık",
-  [usCountry]: "Amerika Birleşik Devletleri"
+  [usCountry]: "Amerika Birleşik Devletleri",
+  "docsPage": {
+    "title": "Belgelerim Sayfasi",
+    "explanation": "Bu sayfa uygulamanin bir alt sayfasi acabildigini gostermek icin yaratilmistir."
+  }
 }
 
 export default tr;

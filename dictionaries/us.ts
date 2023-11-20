@@ -1,3 +1,5 @@
+import { trCountry, deCountry, ukCountry, usCountry } from "@/app/utils/constants";
+
 const us = {
   "Docs": "Docs",
   "Learn": "Learn",
@@ -5,10 +7,15 @@ const us = {
   "Deploy": "Deploy",
   "Country": "Country",
   "SelectedLocale": "Selected Locale",
-  "Turkey": "Turkey",
-  "Germany": "Germany",
-  "United Kingdom": "United Kingdom",
-  "United States": "United States"
+  "Locale": "Locale",
+  [trCountry]: "Turkey",
+  [deCountry]: "Germany",
+  [ukCountry]: "United Kingdom",
+  [usCountry]: "United States",
+  "docsPage": {
+    "title": "Docs Page",
+    "explanation": "This page's been created with the purpose of showing the app can open a sub-page"
+  }
 }
 
 export default us;

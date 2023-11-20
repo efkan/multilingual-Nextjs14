@@ -6,16 +6,16 @@ import { Public as PublicIcon } from '@monster-notebook/mui/icons';
 
 import WhiteButton from '@/app/components/WhiteButton';
 import { countryNameDomainMapping } from '../utils/constants';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Props = {
 	currentDomain: string
 	currentCountry: string
+	countryTranslation: string
 }
 
-export default function CountrySelect({currentDomain, currentCountry}: Readonly<Props>) {
+export default function CountrySelect({currentDomain, currentCountry, countryTranslation}: Readonly<Props>) {
 	const router = useRouter();
-	const params = useParams()
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const filteredCountryDomainPairs = Object.entries(countryNameDomainMapping).filter(pair => pair[0] !== currentCountry)
@@ -39,7 +39,7 @@ export default function CountrySelect({currentDomain, currentCountry}: Readonly<
 		<Box sx={{ ml: '4px !important', p: 0 }}>
 			<WhiteButton onClick={handleToggle} startIcon={<PublicIcon />}>
 				<Box component="span" sx={{ ml: 1, fontSize: '14px' }}>
-					{currentCountry}
+					{countryTranslation + ': ' + currentCountry}
 				</Box>
 			</WhiteButton>
 			<Popper sx={{ zIndex: 9 }} transition disablePortal open={open} anchorEl={anchorEl} placement="bottom-end">

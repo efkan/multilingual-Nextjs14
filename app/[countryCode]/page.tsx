@@ -1,32 +1,20 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
+import { headers } from 'next/headers'
 import Image from 'next/image'
-import {useParams} from 'next/navigation'
+import { countryCodeLocaleMapping, domainCountryCodeMapping, domainCountryNameMapping } from '../utils/constants';
+import CountrySelect from '../components/CountrySelect';
+import LanguageSelect from '../components/LocaleSelect';
 
-import LanguageSelect from './LocaleSelect'
-import CountrySelect from './CountrySelect'
-import { Dictionaries } from '@/dictionaries/type'
-import { domainCountryNameMapping, domainLocaleMapping } from '../utils/constants'
-import { Locale } from '@/i18n-config'
 
-export default function Main({t}: Readonly<{t: Dictionaries}>) {
+export default async function Page ({params}: Readonly<{params: {countryCode: keyof typeof countryCodeLocaleMapping}}>) {
+  console.log("Page - params:", params);
+  const domain = headers().get('host')?.split(':')[0] as keyof typeof domainCountryCodeMapping
+  const locale = countryCodeLocaleMapping[params.countryCode] as Locale
+  const t = await getDictionary(locale)
   const anchorClassName = "group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:border-neutral-700 hover:bg-neutral-800/30"
-  const params = useParams()
-  const [didMount, setDidMount] = useState(false)
 
-  useEffect(() => {
-    setDidMount(true)
-  }, [])
-
-  if (!didMount) return null
-
-  const domain = window.location.hostname as keyof typeof domainCountryNameMapping
   const countryName = domainCountryNameMapping[domain]
-
-  if (!params.locale) {
-    params.locale = domainLocaleMapping[domain]
-  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -38,15 +26,15 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
           </p>
           <p className="fixed left-0 top-0 flex w-full justify-center border-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl border-neutral-800 bg-zinc-800/30 from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 lg:bg-zinc-800/30">
             {t.SelectedLocale}&nbsp;
-            <code className="font-mono font-bold">{params.locale?.toString().toUpperCase()}</code>
+            <code className="font-mono font-bold">{params.countryCode?.toString().toUpperCase()}</code>
           </p>
         </div>
         <div className='flex gap-y-3 flex-row justify-center'>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <CountrySelect currentDomain={domain} currentCountry={countryName} />
+            <CountrySelect currentDomain={domain} currentCountry={countryName} countryTranslation={t.Country} />
           </div>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <LanguageSelect locale={params.locale as Locale} />
+            <LanguageSelect currentCountryCode={params.countryCode as keyof typeof countryCodeLocaleMapping} localeTranslation={t.Locale} />
           </div>
         </div>
       </div>
@@ -64,9 +52,8 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          href={`${params.countryCode}/docs`}
           className={anchorClassName}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2 className={`text-2xl font-semibold`}>
