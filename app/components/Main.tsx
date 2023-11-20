@@ -43,10 +43,10 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
         </div>
         <div className='flex gap-y-3 flex-row justify-center'>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <CountrySelect currentDomain={domain} currentCountry={countryName} />
+            <CountrySelect currentDomain={domain} currentCountry={countryName} countryTranslation={t.Country} />
           </div>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <LanguageSelect currentCountryCode={params.countryCode as keyof typeof countryCodeLocaleMapping} />
+            <LanguageSelect currentCountryCode={params.countryCode as keyof typeof countryCodeLocaleMapping} localeTranslation={t.Locale} />
           </div>
         </div>
       </div>

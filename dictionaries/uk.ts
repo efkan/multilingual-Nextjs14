@@ -7,6 +7,7 @@ const uk = {
   "Deploy": "Deploy",
   "Country": "Country",
   "SelectedLocale": "Selected Locale",
+  "Locale": "Locale",
   [trCountry]: "Turkey",
   [deCountry]: "Germany",
   [ukCountry]: "United Kingdom",

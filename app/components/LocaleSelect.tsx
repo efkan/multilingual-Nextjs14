@@ -16,9 +16,10 @@ import { countryCodeLocaleMapping, countryNameCountryCodeMapping, domainCountryC
 
 type Props = Readonly<{
 	currentCountryCode: keyof typeof countryCodeLocaleMapping
+	localeTranslation: string
 }>
 
-export default function LanguageSelect({currentCountryCode}: Props) {
+export default function LanguageSelect({currentCountryCode, localeTranslation}: Props) {
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const filteredCountryNameCodePairs = Object.entries(countryNameCountryCodeMapping).filter(pair => pair[0] !== currentCountryCode)
@@ -48,7 +49,7 @@ export default function LanguageSelect({currentCountryCode}: Props) {
 		<Box sx={{ ml: '4px !important', p: 0 }}>
 			<WhiteButton onClick={handleToggle} startIcon={<LanguageOutlinedIcon />}>
 				<Box component="span" sx={{ ml: 1, fontSize: '14px' }}>
-					{currentCountryCode.toString().toUpperCase()}
+					{localeTranslation + ": " + currentCountryCode.toString().toUpperCase()}
 				</Box>
 			</WhiteButton>
 			<Popper sx={{ zIndex: 9 }} disablePortal open={open} anchorEl={anchorEl} transition>

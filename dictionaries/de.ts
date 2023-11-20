@@ -7,6 +7,7 @@ const de = {
   "Deploy": "Einsetzen",
   "Country": "Land",
   "SelectedLocale": "ausgewähltes Gebietsschema",
+  "Locale": "Gebietsschema",
   [trCountry]: "Türkei",
   [deCountry]: "Deutschland",
   [ukCountry]: "Großbritannien",

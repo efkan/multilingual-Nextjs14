@@ -7,6 +7,7 @@ const tr = {
   "Deploy": "Dagit",
   "Country": "Ulke",
   "SelectedLocale": "Secilen Yerel Ayar",
+  "Locale": "Yerel Ayar",
   [trCountry]: "Türkiye",
   [deCountry]: "Almanya",
   [ukCountry]: "Birleşik Krallık",
