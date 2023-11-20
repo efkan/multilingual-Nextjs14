@@ -47,7 +47,6 @@ const isLocaleBelongsToDomain = (request: NextRequest, locale: Locale) => {
 export function middleware(request: NextRequest) {
   // NOTE that when the user's default language the same with locale, the country code is not present in the address
   // and the request is hooked by this middleware function
-  console.log(request);
 
   const pathname = request.nextUrl.pathname
   const locale = getLocale(request)

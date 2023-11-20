@@ -1,5 +1,49 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'support.monsternotebook.com',
+          },
+        ],
+        destination: '/tr',
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'support.tulparnotebook.de',
+          },
+        ],
+        destination: '/de',
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'support.tulparnotebook.co.uk',
+          },
+        ],
+        destination: '/uk',
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'support.tulparnotebook.com',
+          },
+        ],
+        destination: '/us',
+      },
+    ]
+  },
   // i18n: {
   //   locales: ['tr-TR', 'en-US', 'de-DE'],
   //   defaultLocale: 'tr-TR',

@@ -10,7 +10,6 @@ export default async function IndexPage () {
 
   const defaultCountryCode = domainCountryCodeMapping[domain] as keyof typeof countryCodeLocaleMapping
   const defaultLocale = countryCodeLocaleMapping[defaultCountryCode] as Locale
-  console.log("IndexPage - defaultLocale:", defaultLocale);
   const dictionary = await getDictionary(defaultLocale)
 
   return (

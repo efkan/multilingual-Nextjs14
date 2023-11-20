@@ -6,7 +6,6 @@ import { countryCodeLocaleMapping } from '../utils/constants';
 
 export default async function Page ({params}: Readonly<{params: {countryCode: keyof typeof countryCodeLocaleMapping}}>) {
   const locale = countryCodeLocaleMapping[params.countryCode] as Locale
-  console.log("Page - locale:", locale);
   const dictionary = await getDictionary(locale)
 
   return (

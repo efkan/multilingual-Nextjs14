@@ -26,10 +26,10 @@ export default function LanguageSelect({currentCountryCode, localeTranslation}: 
 
 	const pathName = usePathname()
   const redirectedPathName = (countryCode: string) => {
-		// const domain = window.location.hostname as keyof typeof domainCountryCodeMapping
-		// const defaultCountryCode = domainCountryCodeMapping[domain]
+		const domain = window.location.hostname as keyof typeof domainCountryCodeMapping
+		const defaultCountryCode = domainCountryCodeMapping[domain]
 
-		// if (countryCode === defaultCountryCode) return '/'
+		if (countryCode === defaultCountryCode) return '/'
 
     if (!pathName) return '/'
     const segments = pathName.split('/')
