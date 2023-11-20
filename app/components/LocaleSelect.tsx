@@ -1,11 +1,8 @@
 "use client"
 
 import { useState, MouseEvent } from 'react';
-
-// ** next
-import { useParams, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Locale, i18n } from '../../i18n-config'
 
 // ** third party
 import { ClickAwayListener, Grow, Box, Paper, Popper, MenuItem, MenuList } from '@monster-notebook/mui/material';
@@ -15,27 +12,27 @@ import { LanguageOutlined as LanguageOutlinedIcon } from '@monster-notebook/mui/
 
 // ** components
 import WhiteButton from '@/app/components/WhiteButton';
-import { domainLocaleMapping } from '../utils/constants';
+import { countryCodeLocaleMapping, countryNameCountryCodeMapping, domainCountryCodeMapping } from '../utils/constants';
 
 type Props = Readonly<{
-	locale: Locale
+	currentCountryCode: keyof typeof countryCodeLocaleMapping
 }>
 
-export default function LanguageSelect(props: Props) {
+export default function LanguageSelect({currentCountryCode}: Props) {
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const filteredCountryNameCodePairs = Object.entries(countryNameCountryCodeMapping).filter(pair => pair[0] !== currentCountryCode)
 
 	const pathName = usePathname()
-  const redirectedPathName = (locale: string) => {
-		const domain = window.location.hostname as keyof typeof domainLocaleMapping
-		const defaultLocale = domainLocaleMapping[domain]
+  const redirectedPathName = (countryCode: string) => {
+		const domain = window.location.hostname as keyof typeof domainCountryCodeMapping
+		const defaultCountryCode = domainCountryCodeMapping[domain]
 
-		if (locale === defaultLocale) return '/'
+		// if (countryCode === defaultCountryCode) return '/'
 
     if (!pathName) return '/'
     const segments = pathName.split('/')
-    segments[1] = locale
-		console.log('segments.join(/)', segments.join('/'));
+    segments[1] = countryCode
 
     return segments.join('/')
   }
@@ -51,7 +48,7 @@ export default function LanguageSelect(props: Props) {
 		<Box sx={{ ml: '4px !important', p: 0 }}>
 			<WhiteButton onClick={handleToggle} startIcon={<LanguageOutlinedIcon />}>
 				<Box component="span" sx={{ ml: 1, fontSize: '14px' }}>
-					{props.locale.toString().toUpperCase()}
+					{currentCountryCode.toString().toUpperCase()}
 				</Box>
 			</WhiteButton>
 			<Popper sx={{ zIndex: 9 }} disablePortal open={open} anchorEl={anchorEl} transition>
@@ -68,16 +65,18 @@ export default function LanguageSelect(props: Props) {
 						<Paper sx={{ backgroundColor: 'black !important', border: '1px solid', borderColor: '#49494A !important', width: '78px' }}>
 							<ClickAwayListener onClickAway={handleClose}>
 								<MenuList sx={{ width: '100%' }} id="split-button-menu">
-									{i18n.locales.filter(loc => loc !== props.locale).map(locale =>
-										<MenuItem
-											sx={{ justifyContent: 'center', textTransform: 'uppercase', color: 'white' }}
-											key={locale}
-											selected={locale === props.locale}
-											onClick={handleClose}
-										>
-											<Link href={redirectedPathName(locale)}>{locale}</Link>
-										</MenuItem>
-									)}
+									{filteredCountryNameCodePairs.map(nameCodePair => {
+										const [_countryName, countryCode] = nameCodePair
+										return (
+											<MenuItem
+												sx={{ justifyContent: 'center', textTransform: 'uppercase', color: 'white' }}
+												key={countryCode}
+												selected={countryCode === currentCountryCode}
+												onClick={handleClose}
+											>
+												<Link href={redirectedPathName(countryCode)}>{countryCode}</Link>
+											</MenuItem>
+										)})}
 								</MenuList>
 							</ClickAwayListener>
 						</Paper>

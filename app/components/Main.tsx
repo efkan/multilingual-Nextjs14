@@ -7,7 +7,7 @@ import {useParams} from 'next/navigation'
 import LanguageSelect from './LocaleSelect'
 import CountrySelect from './CountrySelect'
 import { Dictionaries } from '@/dictionaries/type'
-import { domainCountryNameMapping, domainLocaleMapping } from '../utils/constants'
+import { countryCodeLocaleMapping, countryNameCountryCodeMapping, domainCountryCodeMapping, domainCountryNameMapping, domainLocaleMapping } from '../utils/constants'
 import { Locale } from '@/i18n-config'
 
 export default function Main({t}: Readonly<{t: Dictionaries}>) {
@@ -24,8 +24,8 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const domain = window.location.hostname as keyof typeof domainCountryNameMapping
   const countryName = domainCountryNameMapping[domain]
 
-  if (!params.locale) {
-    params.locale = domainLocaleMapping[domain]
+  if (!params.countryCode) {
+    params.countryCode = domainCountryCodeMapping[domain]
   }
 
   return (
@@ -38,7 +38,7 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
           </p>
           <p className="fixed left-0 top-0 flex w-full justify-center border-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl border-neutral-800 bg-zinc-800/30 from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4 lg:bg-zinc-800/30">
             {t.SelectedLocale}&nbsp;
-            <code className="font-mono font-bold">{params.locale?.toString().toUpperCase()}</code>
+            <code className="font-mono font-bold">{params.countryCode?.toString().toUpperCase()}</code>
           </p>
         </div>
         <div className='flex gap-y-3 flex-row justify-center'>
@@ -46,7 +46,7 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
             <CountrySelect currentDomain={domain} currentCountry={countryName} />
           </div>
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white from-black via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <LanguageSelect locale={params.locale as Locale} />
+            <LanguageSelect currentCountryCode={params.countryCode as keyof typeof countryCodeLocaleMapping} />
           </div>
         </div>
       </div>

@@ -29,6 +29,20 @@ export const countryNameDomainMapping = {
   [usCountry]: usDomain,
 }
 
+export const countryNameCountryCodeMapping = {
+  [trCountry]: 'tr',
+  [deCountry]: 'de',
+  [ukCountry]: 'uk',
+  [usCountry]: 'us',
+}
+
+export const domainCountryCodeMapping = {
+  [turkeyDomain]: 'tr',
+  [germanyDomain]: 'de',
+  [ukDomain]: 'uk',
+  [usDomain]: 'us',
+}
+
 export const localeCountryCodeMapping = {
   'tr': 'tr',
   'tr-TR': 'tr',
@@ -38,51 +52,18 @@ export const localeCountryCodeMapping = {
   'en-GB': 'uk',
 }
 
+export const countryCodeLocaleMapping = {
+  'tr': 'tr',
+  'de': 'de',
+  'us': 'en-US',
+  'uk': 'en-GB',
+}
+
+export const countryCodes = ['tr', 'de', 'us', 'uk']
+
 export const languageCodeCookieName = 'language-code';
 export const languageIdCookieName = 'language-id';
 
 export const countryCodeCookieName = 'country-code';
 export const countryIdCookieName = 'country-id';
-
-export const languageItems = [
-	{
-		_id: '62f09de0b24fb5a5b7f30087',
-		title: 'Türkçe',
-		code: 'tr'
-	},
-	{
-		_id: '62f09deab24fb5a5b7f3008a',
-		title: 'English',
-		code: 'en'
-	},
-	{
-		_id: '6371f1859d0405a4b524408b',
-		title: 'Germany',
-		code: 'de'
-	}
-];
-
-export const countryItems = [
-	{
-		_id: '62f09df4b24fb5a5b7f3008d',
-		title: 'Türkiye',
-		code: 'TR'
-	},
-	{
-		_id: '62f09e00b24fb5a5b7f30090',
-		title: 'Germany',
-		code: 'DE'
-	},
-	{
-		_id: '62f09e00b24fb5a5b7f30090',
-		title: 'United Kingdom',
-		code: 'UK'
-	},
-	{
-		_id: '62f09e00b24fb5a5b7f30090',
-		title: 'United States',
-		code: 'US'
-	},
-];
-
 
