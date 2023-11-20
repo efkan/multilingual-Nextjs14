@@ -6,7 +6,7 @@ import { Public as PublicIcon } from '@monster-notebook/mui/icons';
 
 import WhiteButton from '@/app/components/WhiteButton';
 import { countryNameDomainMapping } from '../utils/constants';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Props = {
 	currentDomain: string
@@ -16,7 +16,6 @@ type Props = {
 
 export default function CountrySelect({currentDomain, currentCountry, countryTranslation}: Readonly<Props>) {
 	const router = useRouter();
-	const params = useParams()
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const filteredCountryDomainPairs = Object.entries(countryNameDomainMapping).filter(pair => pair[0] !== currentCountry)

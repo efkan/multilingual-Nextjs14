@@ -11,7 +11,11 @@ const us = {
   [trCountry]: "Turkey",
   [deCountry]: "Germany",
   [ukCountry]: "United Kingdom",
-  [usCountry]: "United States"
+  [usCountry]: "United States",
+  "docsPage": {
+    "title": "Docs Page",
+    "explanation": "This page's been created with the purpose of showing the app can open a sub-page"
+  }
 }
 
 export default us;

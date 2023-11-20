@@ -7,18 +7,17 @@ import {useParams} from 'next/navigation'
 import LanguageSelect from './LocaleSelect'
 import CountrySelect from './CountrySelect'
 import { Dictionaries } from '@/dictionaries/type'
-import { countryCodeLocaleMapping, countryNameCountryCodeMapping, domainCountryCodeMapping, domainCountryNameMapping, domainLocaleMapping } from '../utils/constants'
-import { Locale } from '@/i18n-config'
+import { countryCodeLocaleMapping, domainCountryCodeMapping, domainCountryNameMapping } from '../utils/constants'
 
 export default function Main({t}: Readonly<{t: Dictionaries}>) {
   const anchorClassName = "group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:border-neutral-700 hover:bg-neutral-800/30"
   const params = useParams()
-  const [didMount, setDidMount] = useState(false)
 
+  // overcoming undefined 'window' issue
+  const [didMount, setDidMount] = useState(false)
   useEffect(() => {
     setDidMount(true)
   }, [])
-
   if (!didMount) return null
 
   const domain = window.location.hostname as keyof typeof domainCountryNameMapping
@@ -64,9 +63,8 @@ export default function Main({t}: Readonly<{t: Dictionaries}>) {
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          href={`/${params.countryCode}/docs`}
           className={anchorClassName}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2 className={`text-2xl font-semibold`}>

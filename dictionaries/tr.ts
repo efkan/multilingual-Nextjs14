@@ -11,7 +11,11 @@ const tr = {
   [trCountry]: "Türkiye",
   [deCountry]: "Almanya",
   [ukCountry]: "Birleşik Krallık",
-  [usCountry]: "Amerika Birleşik Devletleri"
+  [usCountry]: "Amerika Birleşik Devletleri",
+  "docsPage": {
+    "title": "Belgelerim Sayfasi",
+    "explanation": "Bu sayfa uygulamanin bir alt sayfasi acabildigini gostermek icin yaratilmistir."
+  }
 }
 
 export default tr;
